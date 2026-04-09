@@ -5,21 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GitHub Profile Viewer</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
-    <h1 class="text-3xl font-bold mb-6">GitHub Profile Viewer</h1>
+  <body style="font-family: 'Poppins', sans-serif;" class="min-h-screen flex flex-col justify-center items-center p-6 bg-gradient-to-br from-purple-500 via-pink-500 to-red-500">
+    <h1 class="text-5xl font-bold mb-8 text-white text-center drop-shadow-lg">GitHub Profile Viewer</h1>
 
 
-    <div class="w-full max-w-xl flex mb-6">
+    <div class="w-full max-w-xl flex mb-6 shadow-lg">
       <input
         id="usernameInput"
         type="text"
         placeholder="Enter GitHub Username"
-        class="flex-1 p-3 border rounded-l-lg focus:outline-none"
+        class="flex-1 p-3 border rounded-l-lg focus:outline-none text-gray-700"
       />
       <button
         onclick="fetchProfile()"
-        class="bg-black text-white px-6 rounded-r-lg"
+        class="bg-white text-black px-6 rounded-r-lg font-semibold hover:bg-gray-200 transition"
       >
         Search
       </button>
@@ -28,7 +29,7 @@
    
     <div
       id="profileCard"
-      class="w-full max-w-xl bg-white shadow-md rounded-lg p-6 hidden"
+      class="w-full max-w-xl bg-white/90 backdrop-blur-md shadow-xl rounded-lg p-6 hidden"
     >
       <div class="flex items-center space-x-4">
         <img id="avatar" class="w-20 h-20 rounded-full" />
