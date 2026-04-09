@@ -1,35 +1,15 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const profileCard = document.getElementById("profileCard");
-  const reposList = document.getElementById("reposList");
-
-  const input = document.getElementById("usernameInput");
-  input.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      fetchProfile();
-    }
-  });
-});
-
 async function fetchProfile(){
    const username= document.getElementById("usernameInput").value;
    if(!username) return;
 
-   const reposList = document.getElementById("reposList");
-   reposList.innerHTML = `<p class="text-center">Loading...</p>`;
-
    const profileCard = document.getElementById("profileCard");
    profileCard.classList.add("hidden");
-
-   const welcomeSection = document.getElementById("welcomeSection");
-   if (welcomeSection) welcomeSection.style.display = "none";
 
    const userRes= await fetch(`https://api.github.com/users/${username}`);
    const userData= await userRes.json();
 
      if (userData.message === "Not Found") {
-          const reposList = document.getElementById("reposList");
-          reposList.innerHTML = `<p class="text-red-500 text-center">User not found</p>`;
-          profileCard.classList.remove("hidden");
+          alert("User not found");
           return;
         }
 
@@ -38,8 +18,7 @@ async function fetchProfile(){
         document.getElementById("avatar").src = userData.avatar_url;
         document.getElementById("name").textContent = userData.name || "No Name";
         document.getElementById("username").textContent = "@" + userData.login;
-        const date = new Date(userData.created_at);
-        document.getElementById("joinDate").textContent = date.toDateString();
+        document.getElementById("joinDate").textContent = userData.created_at;
 
         document.getElementById("reposCount").textContent = userData.public_repos;
         document.getElementById("followersCount").textContent = userData.followers;
@@ -51,11 +30,13 @@ async function fetchProfile(){
      const starfetch= await fetch(userData.starred_url.replace("{/owner}{/repo}", ""));
      let stars = await starfetch.json();
      document.getElementById("starsCount").textContent = stars.length;
-     reposList.innerHTML = "";
+
+      const reposList = document.getElementById("reposList");
+        reposList.innerHTML = "";
         
         repos.forEach((repo) => {
           const div = document.createElement("div");
-          div.className = "p-4 border rounded bg-gray-50 hover:shadow-md transition";
+          div.className = "p-4 border rounded bg-gray-50";
 
           div.innerHTML = `
             <a href="${repo.html_url}" target="_blank" class="text-blue-600 font-semibold">${repo.name}</a>
